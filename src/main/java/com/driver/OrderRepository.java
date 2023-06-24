@@ -34,17 +34,22 @@ public class OrderRepository {
 
     public void addOrder(Order order) {
 
+         if(orderHashMap.get(order.getId())==null){
 
-          orderHashMap.put(order.getId(), order);
+             orderHashMap.put(order.getId(), order);
+         }
+
     }
 
     public void addPartner(String partnerId) {
 
-
+         if(partner.get(partnerId)==null)
          partner.put(partnerId,new DeliveryPartner(partnerId));
     }
 
     public void addOrderPartnerPair(String orderId, String partnerId) {
+
+        if(orderPartnerPair.containsKey(orderId)) return;
 
          if(orderHashMap.get(orderId)!=null && partner.get(partnerId)!=null)
          {
@@ -75,7 +80,7 @@ public class OrderRepository {
     public Order getOrderById(String orderId) {
 
 
-           return orderHashMap.getOrDefault(orderId,null);
+           return orderHashMap.get(orderId);
 
     }
 
@@ -83,7 +88,7 @@ public class OrderRepository {
 
           // DeliveryPartner partner1 = partner.get(partnerId);
 
-         return  partner.getOrDefault(partnerId,null);
+         return  partner.get(partnerId);
     }
 
     public Integer getOrderCountByPartnerId(String partnerId) {
